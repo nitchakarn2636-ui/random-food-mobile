@@ -169,7 +169,7 @@
     <section class="hero">
       <div class="eyebrow">FOOD RANDOMIZER</div>
       <h1>วันนี้กินอะไรดี?</h1>
-      <p>เลือกจากเมนูอาหารไทยกว่า 100 รายการ แล้วให้เราช่วยสุ่มมื้อนี้</p>
+      <p>เลือกจากอาหาร ของหวาน ขนม และเครื่องดื่มกว่า 200 รายการ</p>
     </section>
 
     <section class="panel">
@@ -185,7 +185,9 @@
         <button class="chip" data-value="noodle">เมนูเส้น</button>
         <button class="chip" data-value="single">อาหารตามสั่ง</button>
         <button class="chip" data-value="healthy">สุขภาพ</button>
-        <button class="chip" data-value="snack">ของกินเล่น</button>
+        <button class="chip" data-value="snack">ขนม/ของกินเล่น</button>
+        <button class="chip" data-value="dessert">ของหวาน</button>
+        <button class="chip" data-value="drink">เครื่องดื่ม</button>
       </div>
 
       <div class="label">งบประมาณ</div>
@@ -361,7 +363,87 @@
       {name:"สุกี้แห้งหมู",category:"noodle",label:"เมนูเส้น",price:70,emoji:"🥬",spicy:false,pork:true,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
       {name:"สุกี้แห้งไก่",category:"noodle",label:"เมนูเส้น",price:70,emoji:"🥬",spicy:false,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
       {name:"สุกี้แห้งทะเล",category:"noodle",label:"เมนูเส้น",price:95,emoji:"🥬",spicy:false,pork:false,seafood:true,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
-      {name:"มาม่าผัดขี้เมาทะเล",category:"noodle",label:"เมนูเส้น",price:90,emoji:"🍜",spicy:true,pork:false,seafood:true,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"}
+      {name:"มาม่าผัดขี้เมาทะเล",category:"noodle",label:"เมนูเส้น",price:90,emoji:"🍜",spicy:true,pork:false,seafood:true,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"บัวลอยไข่หวาน",category:"dessert",label:"ของหวาน",price:45,emoji:"🍡",spicy:false,pork:false,seafood:false,fried:false,desc:"บัวลอยแป้งนุ่มในกะทิหอมมัน เพิ่มไข่หวานได้"},
+      {name:"ลอดช่องน้ำกะทิ",category:"dessert",label:"ของหวาน",price:40,emoji:"🥥",spicy:false,pork:false,seafood:false,fried:false,desc:"ลอดช่องเหนียวนุ่มกับน้ำกะทิและน้ำแข็งเย็นชื่นใจ"},
+      {name:"ทับทิมกรอบ",category:"dessert",label:"ของหวาน",price:45,emoji:"🍧",spicy:false,pork:false,seafood:false,fried:false,desc:"เม็ดทับทิมกรอบสีสวย เสิร์ฟกับกะทิและน้ำแข็ง"},
+      {name:"รวมมิตรน้ำกะทิ",category:"dessert",label:"ของหวาน",price:45,emoji:"🍨",spicy:false,pork:false,seafood:false,fried:false,desc:"รวมเครื่องหวานหลายชนิดในน้ำกะทิเย็น"},
+      {name:"เฉาก๊วยนมสด",category:"dessert",label:"ของหวาน",price:45,emoji:"🥛",spicy:false,pork:false,seafood:false,fried:false,desc:"เฉาก๊วยหนึบกับนมสดหวานกำลังดี"},
+      {name:"เต้าทึงน้ำลำไย",category:"dessert",label:"ของหวาน",price:45,emoji:"🥣",spicy:false,pork:false,seafood:false,fried:false,desc:"ของหวานสมุนไพรจีน เครื่องหลากหลาย น้ำลำไยหอม"},
+      {name:"ข้าวเหนียวมะม่วง",category:"dessert",label:"ของหวาน",price:80,emoji:"🥭",spicy:false,pork:false,seafood:false,fried:false,desc:"มะม่วงสุกหวานกับข้าวเหนียวมูนและกะทิ"},
+      {name:"ข้าวเหนียวทุเรียน",category:"dessert",label:"ของหวาน",price:90,emoji:"🍈",spicy:false,pork:false,seafood:false,fried:false,desc:"ข้าวเหนียวมูนราดน้ำกะทิทุเรียนเข้มข้น"},
+      {name:"กล้วยบวชชี",category:"dessert",label:"ของหวาน",price:40,emoji:"🍌",spicy:false,pork:false,seafood:false,fried:false,desc:"กล้วยน้ำว้าต้มในกะทิหวานมัน"},
+      {name:"ฟักทองแกงบวด",category:"dessert",label:"ของหวาน",price:40,emoji:"🎃",spicy:false,pork:false,seafood:false,fried:false,desc:"ฟักทองนุ่มในน้ำกะทิหอมหวาน"},
+      {name:"มันเชื่อม",category:"dessert",label:"ของหวาน",price:40,emoji:"🍠",spicy:false,pork:false,seafood:false,fried:false,desc:"มันสำปะหลังเชื่อมหวานนุ่ม ราดกะทิ"},
+      {name:"กล้วยเชื่อม",category:"dessert",label:"ของหวาน",price:40,emoji:"🍌",spicy:false,pork:false,seafood:false,fried:false,desc:"กล้วยเชื่อมสีสวย เนื้อนุ่มหนึบ"},
+      {name:"ขนมถ้วย",category:"dessert",label:"ของหวาน",price:35,emoji:"🧁",spicy:false,pork:false,seafood:false,fried:false,desc:"ชั้นล่างหวานนุ่ม ชั้นบนกะทิเค็มมัน"},
+      {name:"ขนมครก",category:"dessert",label:"ของหวาน",price:40,emoji:"🥞",spicy:false,pork:false,seafood:false,fried:false,desc:"ขนมครกกะทิหอม ขอบกรอบตรงกลางนุ่ม"},
+      {name:"ขนมเบื้องไทย",category:"dessert",label:"ของหวาน",price:40,emoji:"🥞",spicy:false,pork:false,seafood:false,fried:false,desc:"แผ่นกรอบบางกับครีมและไส้หวานหรือเค็ม"},
+      {name:"โรตีใส่นม",category:"dessert",label:"ของหวาน",price:45,emoji:"🫓",spicy:false,pork:false,seafood:false,fried:true,desc:"โรตีทอดกรอบนอกนุ่มใน ราดนมข้น"},
+      {name:"ปังเย็นนมชมพู",category:"dessert",label:"ของหวาน",price:65,emoji:"🍧",spicy:false,pork:false,seafood:false,fried:false,desc:"ขนมปังกับน้ำแข็งไสและนมชมพู"},
+      {name:"น้ำแข็งไสรวมมิตร",category:"dessert",label:"ของหวาน",price:45,emoji:"🍧",spicy:false,pork:false,seafood:false,fried:false,desc:"น้ำแข็งไสพร้อมเครื่องหวานและน้ำแดง"},
+      {name:"ไอศกรีมกะทิ",category:"dessert",label:"ของหวาน",price:45,emoji:"🍨",spicy:false,pork:false,seafood:false,fried:false,desc:"ไอศกรีมกะทิหอมมัน เพิ่มถั่วและข้าวเหนียวได้"},
+      {name:"ไอศกรีมชาไทย",category:"dessert",label:"ของหวาน",price:55,emoji:"🍦",spicy:false,pork:false,seafood:false,fried:false,desc:"ไอศกรีมรสชาไทยเข้มข้น"},
+      {name:"ฮันนี่โทสต์",category:"dessert",label:"ของหวาน",price:120,emoji:"🍞",spicy:false,pork:false,seafood:false,fried:true,desc:"ขนมปังอบกรอบกับน้ำผึ้งและไอศกรีม"},
+      {name:"เครปกล้วยช็อกโกแลต",category:"dessert",label:"ของหวาน",price:70,emoji:"🥞",spicy:false,pork:false,seafood:false,fried:false,desc:"เครปแป้งบางกับกล้วยและซอสช็อกโกแลต"},
+      {name:"วาฟเฟิลไอศกรีม",category:"dessert",label:"ของหวาน",price:95,emoji:"🧇",spicy:false,pork:false,seafood:false,fried:false,desc:"วาฟเฟิลอุ่นกับไอศกรีมเย็น"},
+      {name:"เค้กช็อกโกแลต",category:"dessert",label:"ของหวาน",price:85,emoji:"🍰",spicy:false,pork:false,seafood:false,fried:false,desc:"เค้กเนื้อนุ่มรสช็อกโกแลตเข้ม"},
+      {name:"ชีสเค้ก",category:"dessert",label:"ของหวาน",price:95,emoji:"🍰",spicy:false,pork:false,seafood:false,fried:false,desc:"ชีสเค้กเนียนนุ่ม รสหวานอมเปรี้ยว"},
+      {name:"หมูปิ้ง",category:"snack",label:"ขนม/ของกินเล่น",price:50,emoji:"🍢",spicy:false,pork:true,seafood:false,fried:false,desc:"หมูหมักย่างหอม กินคู่ข้าวเหนียว"},
+      {name:"ไก่ย่าง",category:"snack",label:"ขนม/ของกินเล่น",price:70,emoji:"🍗",spicy:false,pork:false,seafood:false,fried:false,desc:"ไก่หมักเครื่องย่างหอม หนังตึงเนื้อนุ่ม"},
+      {name:"ไส้กรอกอีสาน",category:"snack",label:"ขนม/ของกินเล่น",price:60,emoji:"🌭",spicy:false,pork:true,seafood:false,fried:false,desc:"ไส้กรอกรสเปรี้ยวกำลังดี เสิร์ฟกับผักและพริก"},
+      {name:"ทอดมันปลา",category:"snack",label:"ขนม/ของกินเล่น",price:60,emoji:"🐟",spicy:true,pork:false,seafood:true,fried:true,desc:"ทอดมันปลาเนื้อเด้ง หอมพริกแกง"},
+      {name:"กุ้งชุบแป้งทอด",category:"snack",label:"ขนม/ของกินเล่น",price:90,emoji:"🍤",spicy:false,pork:false,seafood:true,fried:true,desc:"กุ้งชุบแป้งทอดกรอบ เสิร์ฟกับน้ำจิ้ม"},
+      {name:"ปลาหมึกย่าง",category:"snack",label:"ขนม/ของกินเล่น",price:80,emoji:"🦑",spicy:true,pork:false,seafood:true,fried:false,desc:"ปลาหมึกย่างหอมกับน้ำจิ้มซีฟู้ด"},
+      {name:"หมูสะเต๊ะ",category:"snack",label:"ขนม/ของกินเล่น",price:70,emoji:"🍢",spicy:false,pork:true,seafood:false,fried:false,desc:"หมูหมักเครื่องเทศย่าง กินกับน้ำจิ้มถั่ว"},
+      {name:"ข้าวโพดคลุกเนย",category:"snack",label:"ขนม/ของกินเล่น",price:40,emoji:"🌽",spicy:false,pork:false,seafood:false,fried:false,desc:"ข้าวโพดหวานคลุกเนยหอม"},
+      {name:"เฟรนช์ฟรายส์",category:"snack",label:"ขนม/ของกินเล่น",price:60,emoji:"🍟",spicy:false,pork:false,seafood:false,fried:true,desc:"มันฝรั่งทอดกรอบ กินเล่นเพลิน"},
+      {name:"นักเก็ตไก่",category:"snack",label:"ขนม/ของกินเล่น",price:65,emoji:"🍗",spicy:false,pork:false,seafood:false,fried:true,desc:"นักเก็ตไก่ทอดกรอบนอกนุ่มใน"},
+      {name:"ชีสบอล",category:"snack",label:"ขนม/ของกินเล่น",price:60,emoji:"🧀",spicy:false,pork:false,seafood:false,fried:true,desc:"แป้งทอดกรอบสอดไส้ชีส"},
+      {name:"เกี๊ยวทอด",category:"snack",label:"ขนม/ของกินเล่น",price:50,emoji:"🥟",spicy:false,pork:true,seafood:false,fried:true,desc:"เกี๊ยวทอดกรอบกับน้ำจิ้มหวาน"},
+      {name:"ปอเปี๊ยะทอด",category:"snack",label:"ขนม/ของกินเล่น",price:55,emoji:"🌯",spicy:false,pork:false,seafood:false,fried:true,desc:"ปอเปี๊ยะไส้ผักทอดกรอบ"},
+      {name:"ขนมจีบหมู",category:"snack",label:"ขนม/ของกินเล่น",price:50,emoji:"🥟",spicy:false,pork:true,seafood:false,fried:false,desc:"ขนมจีบหมูนุ่ม เสิร์ฟกับซอสและกระเทียมเจียว"},
+      {name:"ซาลาเปาหมูสับ",category:"snack",label:"ขนม/ของกินเล่น",price:35,emoji:"🥟",spicy:false,pork:true,seafood:false,fried:false,desc:"ซาลาเปาแป้งนุ่ม ไส้หมูสับ"},
+      {name:"ซาลาเปาไส้ครีม",category:"snack",label:"ขนม/ของกินเล่น",price:35,emoji:"🥟",spicy:false,pork:false,seafood:false,fried:false,desc:"ซาลาเปาแป้งนุ่ม ไส้ครีมหอมหวาน"},
+      {name:"ขนมปังปิ้งเนยนม",category:"snack",label:"ขนม/ของกินเล่น",price:40,emoji:"🍞",spicy:false,pork:false,seafood:false,fried:false,desc:"ขนมปังปิ้งกรอบ ราดนมข้น"},
+      {name:"แซนด์วิชไส้ทูน่า",category:"snack",label:"ขนม/ของกินเล่น",price:55,emoji:"🥪",spicy:false,pork:false,seafood:true,fried:false,desc:"แซนด์วิชทูน่ากินง่ายและอยู่ท้อง"},
+      {name:"แซนด์วิชแฮมชีส",category:"snack",label:"ขนม/ของกินเล่น",price:60,emoji:"🥪",spicy:false,pork:true,seafood:false,fried:false,desc:"แซนด์วิชแฮมชีสหอมมัน"},
+      {name:"มันฝรั่งเกลียวทอด",category:"snack",label:"ขนม/ของกินเล่น",price:50,emoji:"🥔",spicy:false,pork:false,seafood:false,fried:true,desc:"มันฝรั่งเกลียวทอดกรอบโรยผงปรุงรส"},
+      {name:"กล้วยทอด",category:"snack",label:"ขนม/ของกินเล่น",price:40,emoji:"🍌",spicy:false,pork:false,seafood:false,fried:true,desc:"กล้วยชุบแป้งทอดกรอบหวาน"},
+      {name:"มันทอด",category:"snack",label:"ขนม/ของกินเล่น",price:40,emoji:"🍠",spicy:false,pork:false,seafood:false,fried:true,desc:"มันทอดกรอบนอกนุ่มใน"},
+      {name:"เผือกทอด",category:"snack",label:"ขนม/ของกินเล่น",price:45,emoji:"🍠",spicy:false,pork:false,seafood:false,fried:true,desc:"เผือกทอดหอม กรอบและมัน"},
+      {name:"ข้าวเกรียบปากหม้อ",category:"snack",label:"ขนม/ของกินเล่น",price:50,emoji:"🥟",spicy:false,pork:true,seafood:false,fried:false,desc:"แป้งนุ่มบางกับไส้หวานเค็ม"},
+      {name:"เมี่ยงคำ",category:"snack",label:"ขนม/ของกินเล่น",price:70,emoji:"🌿",spicy:true,pork:false,seafood:true,fried:false,desc:"เครื่องสมุนไพรหลายชนิดห่อใบชะพลู"},
+      {name:"ชาไทยเย็น",category:"drink",label:"เครื่องดื่ม",price:45,emoji:"🧋",spicy:false,pork:false,seafood:false,fried:false,desc:"ชาไทยเข้มข้น หวานมัน"},
+      {name:"ชาเขียวนม",category:"drink",label:"เครื่องดื่ม",price:50,emoji:"🍵",spicy:false,pork:false,seafood:false,fried:false,desc:"ชาเขียวหอมกับนม"},
+      {name:"ชามะนาว",category:"drink",label:"เครื่องดื่ม",price:45,emoji:"🍋",spicy:false,pork:false,seafood:false,fried:false,desc:"ชาหอมรสเปรี้ยวสดชื่น"},
+      {name:"ชาดำเย็น",category:"drink",label:"เครื่องดื่ม",price:40,emoji:"🧊",spicy:false,pork:false,seafood:false,fried:false,desc:"ชาดำหวานเย็นแบบไทย"},
+      {name:"กาแฟเย็น",category:"drink",label:"เครื่องดื่ม",price:50,emoji:"☕",spicy:false,pork:false,seafood:false,fried:false,desc:"กาแฟเย็นรสเข้มหวานมัน"},
+      {name:"โอเลี้ยง",category:"drink",label:"เครื่องดื่ม",price:40,emoji:"🥤",spicy:false,pork:false,seafood:false,fried:false,desc:"กาแฟโบราณเย็นหวานหอม"},
+      {name:"เอสเปรสโซเย็น",category:"drink",label:"เครื่องดื่ม",price:60,emoji:"☕",spicy:false,pork:false,seafood:false,fried:false,desc:"กาแฟเข้มข้นเย็น"},
+      {name:"อเมริกาโนเย็น",category:"drink",label:"เครื่องดื่ม",price:55,emoji:"☕",spicy:false,pork:false,seafood:false,fried:false,desc:"กาแฟดำเย็น ไม่หวานหรือเพิ่มหวานได้"},
+      {name:"ลาเต้เย็น",category:"drink",label:"เครื่องดื่ม",price:65,emoji:"🥛",spicy:false,pork:false,seafood:false,fried:false,desc:"กาแฟกับนมรสนุ่ม"},
+      {name:"คาปูชิโนเย็น",category:"drink",label:"เครื่องดื่ม",price:65,emoji:"☕",spicy:false,pork:false,seafood:false,fried:false,desc:"กาแฟนมพร้อมฟองนมนุ่ม"},
+      {name:"มอคค่าเย็น",category:"drink",label:"เครื่องดื่ม",price:70,emoji:"🍫",spicy:false,pork:false,seafood:false,fried:false,desc:"กาแฟผสมช็อกโกแลต"},
+      {name:"โกโก้เย็น",category:"drink",label:"เครื่องดื่ม",price:55,emoji:"🍫",spicy:false,pork:false,seafood:false,fried:false,desc:"โกโก้เข้มข้นหวานมัน"},
+      {name:"นมชมพู",category:"drink",label:"เครื่องดื่ม",price:45,emoji:"🥛",spicy:false,pork:false,seafood:false,fried:false,desc:"นมเย็นกลิ่นสละสีชมพู"},
+      {name:"นมสดเย็น",category:"drink",label:"เครื่องดื่ม",price:45,emoji:"🥛",spicy:false,pork:false,seafood:false,fried:false,desc:"นมสดเย็นรสนุ่ม"},
+      {name:"นมสดคาราเมล",category:"drink",label:"เครื่องดื่ม",price:55,emoji:"🥛",spicy:false,pork:false,seafood:false,fried:false,desc:"นมสดกับไซรัปคาราเมล"},
+      {name:"นมสดบราวน์ชูการ์",category:"drink",label:"เครื่องดื่ม",price:65,emoji:"🧋",spicy:false,pork:false,seafood:false,fried:false,desc:"นมสดกับบราวน์ชูการ์หอม"},
+      {name:"ชานมไข่มุก",category:"drink",label:"เครื่องดื่ม",price:65,emoji:"🧋",spicy:false,pork:false,seafood:false,fried:false,desc:"ชานมหวานมันกับไข่มุกหนึบ"},
+      {name:"น้ำมะนาว",category:"drink",label:"เครื่องดื่ม",price:45,emoji:"🍋",spicy:false,pork:false,seafood:false,fried:false,desc:"น้ำมะนาวเปรี้ยวสดชื่น"},
+      {name:"น้ำผึ้งมะนาว",category:"drink",label:"เครื่องดื่ม",price:55,emoji:"🍯",spicy:false,pork:false,seafood:false,fried:false,desc:"น้ำผึ้งหอมกับมะนาว"},
+      {name:"น้ำส้มคั้น",category:"drink",label:"เครื่องดื่ม",price:60,emoji:"🍊",spicy:false,pork:false,seafood:false,fried:false,desc:"น้ำส้มคั้นสดหวานอมเปรี้ยว"},
+      {name:"น้ำแตงโมปั่น",category:"drink",label:"เครื่องดื่ม",price:55,emoji:"🍉",spicy:false,pork:false,seafood:false,fried:false,desc:"แตงโมปั่นเย็นชื่นใจ"},
+      {name:"น้ำมะพร้าว",category:"drink",label:"เครื่องดื่ม",price:50,emoji:"🥥",spicy:false,pork:false,seafood:false,fried:false,desc:"น้ำมะพร้าวสดหวานธรรมชาติ"},
+      {name:"น้ำอัญชันมะนาว",category:"drink",label:"เครื่องดื่ม",price:45,emoji:"🫐",spicy:false,pork:false,seafood:false,fried:false,desc:"เครื่องดื่มสมุนไพรสีสวยรสเปรี้ยว"},
+      {name:"น้ำเก๊กฮวย",category:"drink",label:"เครื่องดื่ม",price:35,emoji:"🌼",spicy:false,pork:false,seafood:false,fried:false,desc:"น้ำสมุนไพรหอมหวาน"},
+      {name:"น้ำกระเจี๊ยบ",category:"drink",label:"เครื่องดื่ม",price:35,emoji:"🌺",spicy:false,pork:false,seafood:false,fried:false,desc:"น้ำสมุนไพรรสเปรี้ยวหวาน"},
+      {name:"น้ำลำไย",category:"drink",label:"เครื่องดื่ม",price:40,emoji:"🥤",spicy:false,pork:false,seafood:false,fried:false,desc:"น้ำลำไยหอมหวานพร้อมเนื้อลำไย"},
+      {name:"น้ำใบเตย",category:"drink",label:"เครื่องดื่ม",price:35,emoji:"🌿",spicy:false,pork:false,seafood:false,fried:false,desc:"น้ำสมุนไพรกลิ่นใบเตย"},
+      {name:"สมูทตีสตรอว์เบอร์รี",category:"drink",label:"เครื่องดื่ม",price:75,emoji:"🍓",spicy:false,pork:false,seafood:false,fried:false,desc:"สตรอว์เบอร์รีปั่นเนื้อเนียน"},
+      {name:"โยเกิร์ตปีโป้ปั่น",category:"drink",label:"เครื่องดื่ม",price:65,emoji:"🥤",spicy:false,pork:false,seafood:false,fried:false,desc:"โยเกิร์ตปั่นกับเยลลีปีโป้"},
+      {name:"โซดามะนาว",category:"drink",label:"เครื่องดื่ม",price:50,emoji:"🥤",spicy:false,pork:false,seafood:false,fried:false,desc:"โซดาซ่ากับมะนาวสด"}
     ];
 
     let selectedCategory = "all";
