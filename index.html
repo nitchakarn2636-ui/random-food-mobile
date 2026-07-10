@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#ff7a00" />
+  <title>วันนี้กินอะไรดี?</title>
+  <style>
+    :root{
+      --orange:#ff7a00;
+      --orange-dark:#e56700;
+      --cream:#fff7ed;
+      --card:#ffffff;
+      --text:#2d241f;
+      --muted:#7b6f67;
+      --line:#f1dfcf;
+      --green:#20a464;
+      --shadow:0 16px 40px rgba(93,56,20,.12);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,"Segoe UI","Noto Sans Thai",sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(255,170,84,.25), transparent 35%),
+        linear-gradient(180deg,#fffaf5 0%,#fff3e6 100%);
+      color:var(--text);
+      min-height:100vh;
+    }
+    .app{
+      width:min(100%,520px);
+      margin:0 auto;
+      padding:calc(18px + env(safe-area-inset-top)) 16px calc(28px + env(safe-area-inset-bottom));
+    }
+    .hero{
+      background:linear-gradient(135deg,#ff8b24,#ff6f00);
+      color:white;
+      border-radius:28px;
+      padding:24px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .hero:after{
+      content:"🍜";
+      position:absolute;
+      right:-12px;
+      bottom:-22px;
+      font-size:110px;
+      opacity:.17;
+      transform:rotate(-8deg);
+    }
+    .eyebrow{font-size:13px;font-weight:700;opacity:.9;letter-spacing:.2px}
+    h1{margin:7px 0 8px;font-size:32px;line-height:1.15}
+    .hero p{margin:0;max-width:320px;font-size:15px;line-height:1.6;opacity:.93}
+
+    .panel{
+      margin-top:16px;
+      background:rgba(255,255,255,.88);
+      backdrop-filter:blur(12px);
+      border:1px solid rgba(255,255,255,.85);
+      border-radius:24px;
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+    .section-title{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:12px;margin-bottom:12px;
+    }
+    .section-title h2{font-size:18px;margin:0}
+    .reset{
+      border:0;background:transparent;color:var(--orange-dark);
+      font-weight:700;padding:6px;cursor:pointer;
+    }
+    .label{font-size:14px;font-weight:750;margin:14px 0 8px}
+    .chips{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--text);
+      border-radius:999px;
+      padding:10px 13px;
+      font-size:14px;
+      cursor:pointer;
+      transition:.15s ease;
+      user-select:none;
+    }
+    .chip.active{
+      color:white;background:var(--orange);border-color:var(--orange);
+      box-shadow:0 6px 16px rgba(255,122,0,.25);
+    }
+    .budget-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+    .budget-row .chip{text-align:center}
+    .switch-row{
+      display:flex;justify-content:space-between;align-items:center;
+      padding:12px 0;border-bottom:1px solid #f4e7dc;
+    }
+    .switch-row:last-child{border-bottom:0}
+    .switch-label{display:flex;gap:10px;align-items:center;font-size:14px}
+    .switch{
+      width:48px;height:28px;border-radius:999px;background:#ddd;
+      padding:3px;cursor:pointer;transition:.2s;
+    }
+    .switch span{
+      display:block;width:22px;height:22px;background:white;border-radius:50%;
+      transition:.2s;box-shadow:0 2px 8px rgba(0,0,0,.18);
+    }
+    .switch.on{background:var(--green)}
+    .switch.on span{transform:translateX(20px)}
+    .random-btn{
+      width:100%;margin-top:16px;border:0;border-radius:18px;
+      padding:16px 20px;background:linear-gradient(135deg,#ff8b24,#ff6f00);
+      color:white;font-weight:850;font-size:18px;cursor:pointer;
+      box-shadow:0 12px 24px rgba(255,122,0,.28);
+      transition:.15s ease;
+    }
+    .random-btn:active{transform:scale(.985)}
+    .result{
+      margin-top:16px;background:#fff;border-radius:24px;padding:18px;
+      box-shadow:var(--shadow);border:1px solid #f3e6dc;
+      display:none;
+    }
+    .result.show{display:block;animation:pop .25s ease}
+    @keyframes pop{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
+    .food-emoji{
+      height:150px;border-radius:20px;
+      display:grid;place-items:center;font-size:84px;
+      background:linear-gradient(135deg,#fff4e6,#ffe1bd);
+    }
+    .result h3{font-size:26px;margin:16px 0 6px}
+    .meta{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 12px}
+    .badge{
+      background:var(--cream);color:#87501d;border-radius:999px;
+      padding:7px 10px;font-size:13px;font-weight:700;
+    }
+    .desc{font-size:14px;line-height:1.65;color:var(--muted);margin:0}
+    .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+    .btn-secondary{
+      border:1px solid var(--line);background:white;border-radius:16px;
+      padding:13px;font-weight:750;cursor:pointer;color:var(--text);
+    }
+    .btn-fav{
+      border:0;background:#fff0f3;color:#d63357;border-radius:16px;
+      padding:13px;font-weight:800;cursor:pointer;
+    }
+    .favorites{margin-top:16px}
+    .favorites-list{display:grid;gap:10px}
+    .fav-item{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:12px;background:white;border:1px solid var(--line);
+      border-radius:16px;padding:12px 14px;
+    }
+    .fav-name{font-weight:750}
+    .fav-sub{font-size:12px;color:var(--muted);margin-top:3px}
+    .remove{
+      border:0;background:#fff1f1;color:#c23b3b;border-radius:12px;
+      padding:8px 10px;cursor:pointer;font-weight:700;
+    }
+    .empty{
+      text-align:center;color:var(--muted);font-size:14px;
+      padding:14px;background:rgba(255,255,255,.65);border-radius:16px;
+    }
+    .footer{text-align:center;font-size:12px;color:#9a8779;margin-top:18px}
+  </style>
+</head>
+<body>
+  <main class="app">
+    <section class="hero">
+      <div class="eyebrow">FOOD RANDOMIZER</div>
+      <h1>วันนี้กินอะไรดี?</h1>
+      <p>เลือกเงื่อนไขที่ต้องการ แล้วให้เราช่วยสุ่มเมนูสำหรับมื้อนี้</p>
+    </section>
+
+    <section class="panel">
+      <div class="section-title">
+        <h2>ตั้งค่าการสุ่ม</h2>
+        <button class="reset" id="resetBtn">ล้างค่า</button>
+      </div>
+
+      <div class="label">ประเภทอาหาร</div>
+      <div class="chips" id="categoryChips">
+        <button class="chip active" data-value="all">ทั้งหมด</button>
+        <button class="chip" data-value="rice">เมนูข้าว</button>
+        <button class="chip" data-value="noodle">เมนูเส้น</button>
+        <button class="chip" data-value="single">จานเดียว</button>
+        <button class="chip" data-value="healthy">สุขภาพ</button>
+        <button class="chip" data-value="snack">ของกินเล่น</button>
+      </div>
+
+      <div class="label">งบประมาณ</div>
+      <div class="budget-row" id="budgetChips">
+        <button class="chip active" data-value="all">ไม่จำกัด</button>
+        <button class="chip" data-value="60">ไม่เกิน 60</button>
+        <button class="chip" data-value="100">ไม่เกิน 100</button>
+      </div>
+
+      <div class="label">เงื่อนไขเพิ่มเติม</div>
+      <div class="switch-row">
+        <div class="switch-label"><span>🌶️</span>ไม่เอาเผ็ด</div>
+        <div class="switch" data-filter="notSpicy"><span></span></div>
+      </div>
+      <div class="switch-row">
+        <div class="switch-label"><span>🐷</span>ไม่กินหมู</div>
+        <div class="switch" data-filter="noPork"><span></span></div>
+      </div>
+      <div class="switch-row">
+        <div class="switch-label"><span>🍟</span>ไม่เอาของทอด</div>
+        <div class="switch" data-filter="notFried"><span></span></div>
+      </div>
+
+      <button class="random-btn" id="randomBtn">🎲 สุ่มเมนูเลย</button>
+    </section>
+
+    <section class="result" id="resultCard">
+      <div class="food-emoji" id="foodEmoji">🍛</div>
+      <h3 id="foodName">เมนูแนะนำ</h3>
+      <div class="meta">
+        <span class="badge" id="foodCategory"></span>
+        <span class="badge" id="foodPrice"></span>
+      </div>
+      <p class="desc" id="foodDesc"></p>
+      <div class="actions">
+        <button class="btn-secondary" id="againBtn">🔄 สุ่มใหม่</button>
+        <button class="btn-fav" id="favBtn">♡ บันทึกเมนู</button>
+      </div>
+    </section>
+
+    <section class="panel favorites">
+      <div class="section-title"><h2>เมนูโปรด</h2></div>
+      <div class="favorites-list" id="favoritesList"></div>
+    </section>
+
+    <div class="footer">บันทึกเมนูโปรดไว้ในเครื่องของคุณอัตโนมัติ</div>
+  </main>
+
+  <script>
+    const foods = [
+      {name:"ข้าวกะเพราไก่ไข่ดาว",category:"rice",label:"เมนูข้าว",price:65,emoji:"🍳",spicy:true,pork:false,fried:true,desc:"เมนูยอดนิยม อิ่มง่าย ได้ทั้งโปรตีนและความแซ่บในจานเดียว"},
+      {name:"ข้าวผัดกุ้ง",category:"rice",label:"เมนูข้าว",price:70,emoji:"🍤",spicy:false,pork:false,fried:false,desc:"ข้าวผัดหอมกระทะ รสกลมกล่อม กินง่ายทุกมื้อ"},
+      {name:"ข้าวมันไก่",category:"rice",label:"เมนูข้าว",price:55,emoji:"🍗",spicy:false,pork:false,fried:false,desc:"ไก่นุ่มกับข้าวมันหอม ๆ เสิร์ฟพร้อมน้ำจิ้มและน้ำซุป"},
+      {name:"ข้าวหมูแดงหมูกรอบ",category:"rice",label:"เมนูข้าว",price:65,emoji:"🍖",spicy:false,pork:true,fried:true,desc:"ครบทั้งหมูแดง หมูกรอบ และน้ำราดหวานเค็มกำลังดี"},
+      {name:"ข้าวแกงเขียวหวานไก่",category:"rice",label:"เมนูข้าว",price:60,emoji:"🍛",spicy:true,pork:false,fried:false,desc:"แกงกะทิหอมเครื่องแกง ทานคู่ข้าวสวยร้อน ๆ"},
+      {name:"ก๋วยเตี๋ยวต้มยำทะเล",category:"noodle",label:"เมนูเส้น",price:80,emoji:"🍜",spicy:true,pork:false,fried:false,desc:"รสจัดจ้าน เปรี้ยวเผ็ด พร้อมเครื่องทะเล"},
+      {name:"ราดหน้าไก่",category:"noodle",label:"เมนูเส้น",price:60,emoji:"🥣",spicy:false,pork:false,fried:false,desc:"เส้นใหญ่ผัดหอม ราดน้ำเหนียวกำลังดีและผักคะน้า"},
+      {name:"ผัดซีอิ๊วหมู",category:"noodle",label:"เมนูเส้น",price:60,emoji:"🍜",spicy:false,pork:true,fried:false,desc:"เส้นนุ่มหอมซีอิ๊ว ผัดกับหมูและคะน้า"},
+      {name:"สุกี้น้ำไก่",category:"noodle",label:"เมนูเส้น",price:65,emoji:"🥬",spicy:false,pork:false,fried:false,desc:"ผักเยอะ น้ำซุปร้อน ๆ เหมาะกับวันที่อยากกินเบา ๆ"},
+      {name:"เย็นตาโฟ",category:"noodle",label:"เมนูเส้น",price:60,emoji:"🍜",spicy:false,pork:false,fried:false,desc:"น้ำซุปสีชมพูรสหวานอมเปรี้ยว พร้อมเครื่องแน่น"},
+      {name:"ข้าวไข่เจียว",category:"single",label:"จานเดียว",price:45,emoji:"🍳",spicy:false,pork:false,fried:true,desc:"เมนูง่าย ๆ หอมกรอบ อิ่มเร็วและประหยัด"},
+      {name:"ข้าวคลุกกะปิ",category:"single",label:"จานเดียว",price:70,emoji:"🍚",spicy:false,pork:true,fried:false,desc:"เครื่องเคียงหลากหลาย รสครบทั้งหวาน เค็ม เปรี้ยว"},
+      {name:"ข้าวหน้าไก่เทอริยากิ",category:"single",label:"จานเดียว",price:85,emoji:"🍱",spicy:false,pork:false,fried:false,desc:"ไก่นุ่มซอสหวานเค็มสไตล์ญี่ปุ่น ทานง่าย"},
+      {name:"ข้าวยำไก่แซ่บ",category:"single",label:"จานเดียว",price:75,emoji:"🥗",spicy:true,pork:false,fried:true,desc:"ไก่กรอบคลุกเครื่องยำรสจัดจ้าน"},
+      {name:"ข้าวต้มปลา",category:"healthy",label:"สุขภาพ",price:80,emoji:"🐟",spicy:false,pork:false,fried:false,desc:"เบาท้อง โปรตีนดี ไขมันต่ำ เหมาะกับมื้อเย็น"},
+      {name:"สลัดอกไก่",category:"healthy",label:"สุขภาพ",price:90,emoji:"🥗",spicy:false,pork:false,fried:false,desc:"ผักสดกับอกไก่ โปรตีนสูงและอิ่มนาน"},
+      {name:"ข้าวไรซ์เบอร์รีอกไก่ย่าง",category:"healthy",label:"สุขภาพ",price:95,emoji:"🍱",spicy:false,pork:false,fried:false,desc:"ครบทั้งคาร์บเชิงซ้อน โปรตีน และผัก"},
+      {name:"เกาเหลาเลือดหมู",category:"healthy",label:"สุขภาพ",price:70,emoji:"🥣",spicy:false,pork:true,fried:false,desc:"น้ำซุปร้อน ๆ เครื่องแน่น เลือกไม่ใส่กระเทียมเจียวได้"},
+      {name:"ลูกชิ้นปิ้ง",category:"snack",label:"ของกินเล่น",price:40,emoji:"🍢",spicy:false,pork:true,fried:false,desc:"กินเล่นง่าย ๆ พร้อมน้ำจิ้มหวานหรือเผ็ด"},
+      {name:"ไก่ทอด",category:"snack",label:"ของกินเล่น",price:60,emoji:"🍗",spicy:false,pork:false,fried:true,desc:"กรอบนอกนุ่มใน เหมาะเป็นของกินเล่นหรือมื้อเร่งด่วน"},
+      {name:"ปอเปี๊ยะสด",category:"snack",label:"ของกินเล่น",price:50,emoji:"🌯",spicy:false,pork:false,fried:false,desc:"ผักและเครื่องแน่น ราดน้ำหวานเค็ม"},
+      {name:"ยำวุ้นเส้นทะเล",category:"snack",label:"ของกินเล่น",price:95,emoji:"🥗",spicy:true,pork:false,fried:false,desc:"รสแซ่บ สดชื่น พร้อมวัตถุดิบทะเล"}
+    ];
+
+    let selectedCategory = "all";
+    let selectedBudget = "all";
+    let filters = {notSpicy:false,noPork:false,notFried:false};
+    let currentFood = null;
+
+    const resultCard = document.getElementById("resultCard");
+    const favoritesList = document.getElementById("favoritesList");
+
+    function selectSingle(containerId, setter){
+      document.getElementById(containerId).addEventListener("click", e=>{
+        if(!e.target.classList.contains("chip")) return;
+        [...e.currentTarget.children].forEach(x=>x.classList.remove("active"));
+        e.target.classList.add("active");
+        setter(e.target.dataset.value);
+      });
+    }
+    selectSingle("categoryChips", v=>selectedCategory=v);
+    selectSingle("budgetChips", v=>selectedBudget=v);
+
+    document.querySelectorAll(".switch").forEach(sw=>{
+      sw.addEventListener("click", ()=>{
+        sw.classList.toggle("on");
+        filters[sw.dataset.filter] = sw.classList.contains("on");
+      });
+    });
+
+    function getCandidates(){
+      return foods.filter(f=>{
+        if(selectedCategory !== "all" && f.category !== selectedCategory) return false;
+        if(selectedBudget !== "all" && f.price > Number(selectedBudget)) return false;
+        if(filters.notSpicy && f.spicy) return false;
+        if(filters.noPork && f.pork) return false;
+        if(filters.notFried && f.fried) return false;
+        return true;
+      });
+    }
+
+    function randomFood(){
+      const list = getCandidates();
+      if(!list.length){
+        currentFood = null;
+        document.getElementById("foodEmoji").textContent = "😅";
+        document.getElementById("foodName").textContent = "ไม่พบเมนูที่ตรงเงื่อนไข";
+        document.getElementById("foodCategory").textContent = "ลองลดเงื่อนไขลง";
+        document.getElementById("foodPrice").textContent = "หรือเพิ่มงบประมาณ";
+        document.getElementById("foodDesc").textContent = "ตอนนี้ตัวเลือกค่อนข้างจำกัด ลองล้างค่าแล้วสุ่มใหม่อีกครั้ง";
+        document.getElementById("favBtn").style.display = "none";
+      }else{
+        currentFood = list[Math.floor(Math.random()*list.length)];
+        document.getElementById("foodEmoji").textContent = currentFood.emoji;
+        document.getElementById("foodName").textContent = currentFood.name;
+        document.getElementById("foodCategory").textContent = currentFood.label;
+        document.getElementById("foodPrice").textContent = `ประมาณ ${currentFood.price} บาท`;
+        document.getElementById("foodDesc").textContent = currentFood.desc;
+        document.getElementById("favBtn").style.display = "block";
+        updateFavButton();
+      }
+      resultCard.classList.remove("show");
+      void resultCard.offsetWidth;
+      resultCard.classList.add("show");
+      resultCard.scrollIntoView({behavior:"smooth",block:"center"});
+    }
+
+    document.getElementById("randomBtn").addEventListener("click", randomFood);
+    document.getElementById("againBtn").addEventListener("click", randomFood);
+
+    function getFavorites(){
+      try{return JSON.parse(localStorage.getItem("foodFavorites") || "[]");}
+      catch{return []}
+    }
+    function saveFavorites(list){
+      localStorage.setItem("foodFavorites", JSON.stringify(list));
+      renderFavorites();
+      updateFavButton();
+    }
+    function updateFavButton(){
+      if(!currentFood) return;
+      const exists = getFavorites().some(x=>x.name===currentFood.name);
+      document.getElementById("favBtn").textContent = exists ? "♥ บันทึกแล้ว" : "♡ บันทึกเมนู";
+    }
+    document.getElementById("favBtn").addEventListener("click", ()=>{
+      if(!currentFood) return;
+      const list = getFavorites();
+      const index = list.findIndex(x=>x.name===currentFood.name);
+      if(index>=0) list.splice(index,1);
+      else list.unshift(currentFood);
+      saveFavorites(list);
+    });
+
+    function renderFavorites(){
+      const list = getFavorites();
+      if(!list.length){
+        favoritesList.innerHTML = '<div class="empty">ยังไม่มีเมนูโปรด ลองสุ่มแล้วกดบันทึกได้เลย</div>';
+        return;
+      }
+      favoritesList.innerHTML = list.map((f,i)=>`
+        <div class="fav-item">
+          <div>
+            <div class="fav-name">${f.emoji} ${f.name}</div>
+            <div class="fav-sub">${f.label} · ประมาณ ${f.price} บาท</div>
+          </div>
+          <button class="remove" data-index="${i}">ลบ</button>
+        </div>`).join("");
+      document.querySelectorAll(".remove").forEach(btn=>{
+        btn.addEventListener("click",()=>{
+          const data = getFavorites();
+          data.splice(Number(btn.dataset.index),1);
+          saveFavorites(data);
+        });
+      });
+    }
+
+    document.getElementById("resetBtn").addEventListener("click", ()=>{
+      selectedCategory="all";
+      selectedBudget="all";
+      filters={notSpicy:false,noPork:false,notFried:false};
+      document.querySelectorAll("#categoryChips .chip, #budgetChips .chip").forEach(x=>x.classList.remove("active"));
+      document.querySelector('#categoryChips [data-value="all"]').classList.add("active");
+      document.querySelector('#budgetChips [data-value="all"]').classList.add("active");
+      document.querySelectorAll(".switch").forEach(x=>x.classList.remove("on"));
+      resultCard.classList.remove("show");
+      window.scrollTo({top:0,behavior:"smooth"});
+    });
+
+    renderFavorites();
+  </script>
+</body>
+</html>
