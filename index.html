@@ -169,7 +169,7 @@
     <section class="hero">
       <div class="eyebrow">FOOD RANDOMIZER</div>
       <h1>วันนี้กินอะไรดี?</h1>
-      <p>เลือกเงื่อนไขที่ต้องการ แล้วให้เราช่วยสุ่มเมนูสำหรับมื้อนี้</p>
+      <p>เลือกจากเมนูอาหารไทยกว่า 100 รายการ แล้วให้เราช่วยสุ่มมื้อนี้</p>
     </section>
 
     <section class="panel">
@@ -183,7 +183,7 @@
         <button class="chip active" data-value="all">ทั้งหมด</button>
         <button class="chip" data-value="rice">เมนูข้าว</button>
         <button class="chip" data-value="noodle">เมนูเส้น</button>
-        <button class="chip" data-value="single">จานเดียว</button>
+        <button class="chip" data-value="single">อาหารตามสั่ง</button>
         <button class="chip" data-value="healthy">สุขภาพ</button>
         <button class="chip" data-value="snack">ของกินเล่น</button>
       </div>
@@ -203,6 +203,10 @@
       <div class="switch-row">
         <div class="switch-label"><span>🐷</span>ไม่กินหมู</div>
         <div class="switch" data-filter="noPork"><span></span></div>
+      </div>
+      <div class="switch-row">
+        <div class="switch-label"><span>🦐</span>ไม่เอาอาหารทะเล</div>
+        <div class="switch" data-filter="noSeafood"><span></span></div>
       </div>
       <div class="switch-row">
         <div class="switch-label"><span>🍟</span>ไม่เอาของทอด</div>
@@ -236,33 +240,133 @@
 
   <script>
     const foods = [
-      {name:"ข้าวกะเพราไก่ไข่ดาว",category:"rice",label:"เมนูข้าว",price:65,emoji:"🍳",spicy:true,pork:false,fried:true,desc:"เมนูยอดนิยม อิ่มง่าย ได้ทั้งโปรตีนและความแซ่บในจานเดียว"},
-      {name:"ข้าวผัดกุ้ง",category:"rice",label:"เมนูข้าว",price:70,emoji:"🍤",spicy:false,pork:false,fried:false,desc:"ข้าวผัดหอมกระทะ รสกลมกล่อม กินง่ายทุกมื้อ"},
-      {name:"ข้าวมันไก่",category:"rice",label:"เมนูข้าว",price:55,emoji:"🍗",spicy:false,pork:false,fried:false,desc:"ไก่นุ่มกับข้าวมันหอม ๆ เสิร์ฟพร้อมน้ำจิ้มและน้ำซุป"},
-      {name:"ข้าวหมูแดงหมูกรอบ",category:"rice",label:"เมนูข้าว",price:65,emoji:"🍖",spicy:false,pork:true,fried:true,desc:"ครบทั้งหมูแดง หมูกรอบ และน้ำราดหวานเค็มกำลังดี"},
-      {name:"ข้าวแกงเขียวหวานไก่",category:"rice",label:"เมนูข้าว",price:60,emoji:"🍛",spicy:true,pork:false,fried:false,desc:"แกงกะทิหอมเครื่องแกง ทานคู่ข้าวสวยร้อน ๆ"},
-      {name:"ก๋วยเตี๋ยวต้มยำทะเล",category:"noodle",label:"เมนูเส้น",price:80,emoji:"🍜",spicy:true,pork:false,fried:false,desc:"รสจัดจ้าน เปรี้ยวเผ็ด พร้อมเครื่องทะเล"},
-      {name:"ราดหน้าไก่",category:"noodle",label:"เมนูเส้น",price:60,emoji:"🥣",spicy:false,pork:false,fried:false,desc:"เส้นใหญ่ผัดหอม ราดน้ำเหนียวกำลังดีและผักคะน้า"},
-      {name:"ผัดซีอิ๊วหมู",category:"noodle",label:"เมนูเส้น",price:60,emoji:"🍜",spicy:false,pork:true,fried:false,desc:"เส้นนุ่มหอมซีอิ๊ว ผัดกับหมูและคะน้า"},
-      {name:"สุกี้น้ำไก่",category:"noodle",label:"เมนูเส้น",price:65,emoji:"🥬",spicy:false,pork:false,fried:false,desc:"ผักเยอะ น้ำซุปร้อน ๆ เหมาะกับวันที่อยากกินเบา ๆ"},
-      {name:"เย็นตาโฟ",category:"noodle",label:"เมนูเส้น",price:60,emoji:"🍜",spicy:false,pork:false,fried:false,desc:"น้ำซุปสีชมพูรสหวานอมเปรี้ยว พร้อมเครื่องแน่น"},
-      {name:"ข้าวไข่เจียว",category:"single",label:"จานเดียว",price:45,emoji:"🍳",spicy:false,pork:false,fried:true,desc:"เมนูง่าย ๆ หอมกรอบ อิ่มเร็วและประหยัด"},
-      {name:"ข้าวคลุกกะปิ",category:"single",label:"จานเดียว",price:70,emoji:"🍚",spicy:false,pork:true,fried:false,desc:"เครื่องเคียงหลากหลาย รสครบทั้งหวาน เค็ม เปรี้ยว"},
-      {name:"ข้าวหน้าไก่เทอริยากิ",category:"single",label:"จานเดียว",price:85,emoji:"🍱",spicy:false,pork:false,fried:false,desc:"ไก่นุ่มซอสหวานเค็มสไตล์ญี่ปุ่น ทานง่าย"},
-      {name:"ข้าวยำไก่แซ่บ",category:"single",label:"จานเดียว",price:75,emoji:"🥗",spicy:true,pork:false,fried:true,desc:"ไก่กรอบคลุกเครื่องยำรสจัดจ้าน"},
-      {name:"ข้าวต้มปลา",category:"healthy",label:"สุขภาพ",price:80,emoji:"🐟",spicy:false,pork:false,fried:false,desc:"เบาท้อง โปรตีนดี ไขมันต่ำ เหมาะกับมื้อเย็น"},
-      {name:"สลัดอกไก่",category:"healthy",label:"สุขภาพ",price:90,emoji:"🥗",spicy:false,pork:false,fried:false,desc:"ผักสดกับอกไก่ โปรตีนสูงและอิ่มนาน"},
-      {name:"ข้าวไรซ์เบอร์รีอกไก่ย่าง",category:"healthy",label:"สุขภาพ",price:95,emoji:"🍱",spicy:false,pork:false,fried:false,desc:"ครบทั้งคาร์บเชิงซ้อน โปรตีน และผัก"},
-      {name:"เกาเหลาเลือดหมู",category:"healthy",label:"สุขภาพ",price:70,emoji:"🥣",spicy:false,pork:true,fried:false,desc:"น้ำซุปร้อน ๆ เครื่องแน่น เลือกไม่ใส่กระเทียมเจียวได้"},
-      {name:"ลูกชิ้นปิ้ง",category:"snack",label:"ของกินเล่น",price:40,emoji:"🍢",spicy:false,pork:true,fried:false,desc:"กินเล่นง่าย ๆ พร้อมน้ำจิ้มหวานหรือเผ็ด"},
-      {name:"ไก่ทอด",category:"snack",label:"ของกินเล่น",price:60,emoji:"🍗",spicy:false,pork:false,fried:true,desc:"กรอบนอกนุ่มใน เหมาะเป็นของกินเล่นหรือมื้อเร่งด่วน"},
-      {name:"ปอเปี๊ยะสด",category:"snack",label:"ของกินเล่น",price:50,emoji:"🌯",spicy:false,pork:false,fried:false,desc:"ผักและเครื่องแน่น ราดน้ำหวานเค็ม"},
-      {name:"ยำวุ้นเส้นทะเล",category:"snack",label:"ของกินเล่น",price:95,emoji:"🥗",spicy:true,pork:false,fried:false,desc:"รสแซ่บ สดชื่น พร้อมวัตถุดิบทะเล"}
+      {name:"ข้าวกะเพราไก่ไข่ดาว",category:"rice",label:"เมนูข้าว",price:65,emoji:"🍳",spicy:true,pork:false,seafood:false,fried:true,desc:"เมนูยอดนิยม อิ่มง่าย ได้ทั้งโปรตีนและความแซ่บในจานเดียว"},
+      {name:"ข้าวผัดกุ้ง",category:"rice",label:"เมนูข้าว",price:70,emoji:"🍤",spicy:false,pork:false,seafood:true,fried:false,desc:"ข้าวผัดหอมกระทะ รสกลมกล่อม กินง่ายทุกมื้อ"},
+      {name:"ข้าวมันไก่",category:"rice",label:"เมนูข้าว",price:55,emoji:"🍗",spicy:false,pork:false,seafood:false,fried:false,desc:"ไก่นุ่มกับข้าวมันหอม ๆ เสิร์ฟพร้อมน้ำจิ้มและน้ำซุป"},
+      {name:"ข้าวหมูแดงหมูกรอบ",category:"rice",label:"เมนูข้าว",price:65,emoji:"🍖",spicy:false,pork:true,seafood:false,fried:true,desc:"ครบทั้งหมูแดง หมูกรอบ และน้ำราดหวานเค็มกำลังดี"},
+      {name:"ข้าวแกงเขียวหวานไก่",category:"rice",label:"เมนูข้าว",price:60,emoji:"🍛",spicy:true,pork:false,seafood:false,fried:false,desc:"แกงกะทิหอมเครื่องแกง ทานคู่ข้าวสวยร้อน ๆ"},
+      {name:"ก๋วยเตี๋ยวต้มยำทะเล",category:"noodle",label:"เมนูเส้น",price:80,emoji:"🍜",spicy:true,pork:false,seafood:true,fried:false,desc:"รสจัดจ้าน เปรี้ยวเผ็ด พร้อมเครื่องทะเล"},
+      {name:"ราดหน้าไก่",category:"noodle",label:"เมนูเส้น",price:60,emoji:"🥣",spicy:false,pork:false,seafood:false,fried:false,desc:"เส้นใหญ่ผัดหอม ราดน้ำเหนียวกำลังดีและผักคะน้า"},
+      {name:"ผัดซีอิ๊วหมู",category:"noodle",label:"เมนูเส้น",price:60,emoji:"🍜",spicy:false,pork:true,seafood:false,fried:false,desc:"เส้นนุ่มหอมซีอิ๊ว ผัดกับหมูและคะน้า"},
+      {name:"สุกี้น้ำไก่",category:"noodle",label:"เมนูเส้น",price:65,emoji:"🥬",spicy:false,pork:false,seafood:false,fried:false,desc:"ผักเยอะ น้ำซุปร้อน ๆ เหมาะกับวันที่อยากกินเบา ๆ"},
+      {name:"เย็นตาโฟ",category:"noodle",label:"เมนูเส้น",price:60,emoji:"🍜",spicy:false,pork:false,seafood:false,fried:false,desc:"น้ำซุปสีชมพูรสหวานอมเปรี้ยว พร้อมเครื่องแน่น"},
+      {name:"ข้าวไข่เจียว",category:"single",label:"จานเดียว",price:45,emoji:"🍳",spicy:false,pork:false,seafood:false,fried:true,desc:"เมนูง่าย ๆ หอมกรอบ อิ่มเร็วและประหยัด"},
+      {name:"ข้าวคลุกกะปิ",category:"single",label:"จานเดียว",price:70,emoji:"🍚",spicy:false,pork:true,seafood:false,fried:false,desc:"เครื่องเคียงหลากหลาย รสครบทั้งหวาน เค็ม เปรี้ยว"},
+      {name:"ข้าวหน้าไก่เทอริยากิ",category:"single",label:"จานเดียว",price:85,emoji:"🍱",spicy:false,pork:false,seafood:false,fried:false,desc:"ไก่นุ่มซอสหวานเค็มสไตล์ญี่ปุ่น ทานง่าย"},
+      {name:"ข้าวยำไก่แซ่บ",category:"single",label:"จานเดียว",price:75,emoji:"🥗",spicy:true,pork:false,seafood:false,fried:true,desc:"ไก่กรอบคลุกเครื่องยำรสจัดจ้าน"},
+      {name:"ข้าวต้มปลา",category:"healthy",label:"สุขภาพ",price:80,emoji:"🐟",spicy:false,pork:false,seafood:true,fried:false,desc:"เบาท้อง โปรตีนดี ไขมันต่ำ เหมาะกับมื้อเย็น"},
+      {name:"สลัดอกไก่",category:"healthy",label:"สุขภาพ",price:90,emoji:"🥗",spicy:false,pork:false,seafood:false,fried:false,desc:"ผักสดกับอกไก่ โปรตีนสูงและอิ่มนาน"},
+      {name:"ข้าวไรซ์เบอร์รีอกไก่ย่าง",category:"healthy",label:"สุขภาพ",price:95,emoji:"🍱",spicy:false,pork:false,seafood:false,fried:false,desc:"ครบทั้งคาร์บเชิงซ้อน โปรตีน และผัก"},
+      {name:"เกาเหลาเลือดหมู",category:"healthy",label:"สุขภาพ",price:70,emoji:"🥣",spicy:false,pork:true,seafood:false,fried:false,desc:"น้ำซุปร้อน ๆ เครื่องแน่น เลือกไม่ใส่กระเทียมเจียวได้"},
+      {name:"ลูกชิ้นปิ้ง",category:"snack",label:"ของกินเล่น",price:40,emoji:"🍢",spicy:false,pork:true,seafood:false,fried:false,desc:"กินเล่นง่าย ๆ พร้อมน้ำจิ้มหวานหรือเผ็ด"},
+      {name:"ไก่ทอด",category:"snack",label:"ของกินเล่น",price:60,emoji:"🍗",spicy:false,pork:false,seafood:false,fried:true,desc:"กรอบนอกนุ่มใน เหมาะเป็นของกินเล่นหรือมื้อเร่งด่วน"},
+      {name:"ปอเปี๊ยะสด",category:"snack",label:"ของกินเล่น",price:50,emoji:"🌯",spicy:false,pork:false,seafood:false,fried:false,desc:"ผักและเครื่องแน่น ราดน้ำหวานเค็ม"},
+      {name:"ยำวุ้นเส้นทะเล",category:"snack",label:"ของกินเล่น",price:95,emoji:"🥗",spicy:true,pork:false,seafood:true,fried:false,desc:"รสแซ่บ สดชื่น พร้อมวัตถุดิบทะเล"},
+      {name:"ข้าวกะเพราหมูสับ",category:"single",label:"อาหารตามสั่ง",price:65,emoji:"🍛",spicy:true,pork:true,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวกะเพราหมูชิ้น",category:"single",label:"อาหารตามสั่ง",price:65,emoji:"🍛",spicy:true,pork:true,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวกะเพราหมูกรอบ",category:"single",label:"อาหารตามสั่ง",price:75,emoji:"🍛",spicy:true,pork:true,seafood:false,fried:true,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวกะเพราไก่",category:"single",label:"อาหารตามสั่ง",price:65,emoji:"🍛",spicy:true,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวกะเพราเนื้อ",category:"single",label:"อาหารตามสั่ง",price:80,emoji:"🍛",spicy:true,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวกะเพรากุ้ง",category:"single",label:"อาหารตามสั่ง",price:85,emoji:"🍤",spicy:true,pork:false,seafood:true,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวกะเพราปลาหมึก",category:"single",label:"อาหารตามสั่ง",price:85,emoji:"🦑",spicy:true,pork:false,seafood:true,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวกะเพราทะเล",category:"single",label:"อาหารตามสั่ง",price:90,emoji:"🦐",spicy:true,pork:false,seafood:true,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวกะเพราไข่เยี่ยวม้าหมูสับ",category:"single",label:"อาหารตามสั่ง",price:80,emoji:"🍳",spicy:true,pork:true,seafood:false,fried:true,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวกะเพราเต้าหู้หมูสับ",category:"single",label:"อาหารตามสั่ง",price:75,emoji:"🥘",spicy:true,pork:true,seafood:false,fried:true,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวกะเพราเห็ด",category:"single",label:"อาหารตามสั่ง",price:60,emoji:"🍄",spicy:true,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวกะเพราเต้าหู้",category:"single",label:"อาหารตามสั่ง",price:60,emoji:"🥘",spicy:true,pork:false,seafood:false,fried:true,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวกะเพราปลากระป๋อง",category:"single",label:"อาหารตามสั่ง",price:70,emoji:"🐟",spicy:true,pork:false,seafood:true,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวกะเพราวุ้นเส้นหมูสับ",category:"single",label:"อาหารตามสั่ง",price:70,emoji:"🍜",spicy:true,pork:true,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวกะเพราเครื่องในไก่",category:"single",label:"อาหารตามสั่ง",price:70,emoji:"🍛",spicy:true,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดพริกแกงหมู",category:"single",label:"อาหารตามสั่ง",price:65,emoji:"🍛",spicy:true,pork:true,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดพริกแกงไก่",category:"single",label:"อาหารตามสั่ง",price:65,emoji:"🍛",spicy:true,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดพริกแกงหมูกรอบ",category:"single",label:"อาหารตามสั่ง",price:75,emoji:"🍛",spicy:true,pork:true,seafood:false,fried:true,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดพริกแกงเนื้อ",category:"single",label:"อาหารตามสั่ง",price:80,emoji:"🍛",spicy:true,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดพริกแกงกุ้ง",category:"single",label:"อาหารตามสั่ง",price:85,emoji:"🍤",spicy:true,pork:false,seafood:true,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดพริกแกงปลาหมึก",category:"single",label:"อาหารตามสั่ง",price:85,emoji:"🦑",spicy:true,pork:false,seafood:true,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดพริกเผาหมู",category:"single",label:"อาหารตามสั่ง",price:65,emoji:"🍛",spicy:true,pork:true,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดพริกเผาไก่",category:"single",label:"อาหารตามสั่ง",price:65,emoji:"🍛",spicy:true,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดพริกเผาหมูกรอบ",category:"single",label:"อาหารตามสั่ง",price:75,emoji:"🍛",spicy:true,pork:true,seafood:false,fried:true,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดพริกเผาทะเล",category:"single",label:"อาหารตามสั่ง",price:90,emoji:"🦐",spicy:true,pork:false,seafood:true,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดพริกสดหมู",category:"single",label:"อาหารตามสั่ง",price:65,emoji:"🌶️",spicy:true,pork:true,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดพริกสดไก่",category:"single",label:"อาหารตามสั่ง",price:65,emoji:"🌶️",spicy:true,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดพริกหยวกหมู",category:"single",label:"อาหารตามสั่ง",price:65,emoji:"🫑",spicy:false,pork:true,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดพริกหยวกไก่",category:"single",label:"อาหารตามสั่ง",price:65,emoji:"🫑",spicy:false,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวหมูผัดพริกไทยดำ",category:"single",label:"อาหารตามสั่ง",price:70,emoji:"🥘",spicy:false,pork:true,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวไก่ผัดพริกไทยดำ",category:"single",label:"อาหารตามสั่ง",price:70,emoji:"🥘",spicy:false,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวเนื้อผัดพริกไทยดำ",category:"single",label:"อาหารตามสั่ง",price:85,emoji:"🥘",spicy:false,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวทะเลผัดพริกไทยดำ",category:"single",label:"อาหารตามสั่ง",price:90,emoji:"🦐",spicy:false,pork:false,seafood:true,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวคะน้าหมูชิ้น",category:"single",label:"อาหารตามสั่ง",price:65,emoji:"🥬",spicy:false,pork:true,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวคะน้าหมูกรอบ",category:"single",label:"อาหารตามสั่ง",price:75,emoji:"🥬",spicy:false,pork:true,seafood:false,fried:true,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวคะน้าไก่",category:"single",label:"อาหารตามสั่ง",price:65,emoji:"🥬",spicy:false,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวคะน้าเนื้อ",category:"single",label:"อาหารตามสั่ง",price:80,emoji:"🥬",spicy:false,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผักบุ้งหมูสับ",category:"single",label:"อาหารตามสั่ง",price:65,emoji:"🥬",spicy:true,pork:true,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผักบุ้งหมูกรอบ",category:"single",label:"อาหารตามสั่ง",price:75,emoji:"🥬",spicy:true,pork:true,seafood:false,fried:true,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผักบุ้งไฟแดง",category:"single",label:"อาหารตามสั่ง",price:55,emoji:"🥬",spicy:true,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดผักรวมหมู",category:"single",label:"อาหารตามสั่ง",price:65,emoji:"🥦",spicy:false,pork:true,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดผักรวมไก่",category:"single",label:"อาหารตามสั่ง",price:65,emoji:"🥦",spicy:false,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดผักรวมกุ้ง",category:"single",label:"อาหารตามสั่ง",price:85,emoji:"🥦",spicy:false,pork:false,seafood:true,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวบรอกโคลีหมู",category:"single",label:"อาหารตามสั่ง",price:70,emoji:"🥦",spicy:false,pork:true,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวบรอกโคลีไก่",category:"single",label:"อาหารตามสั่ง",price:70,emoji:"🥦",spicy:false,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวบรอกโคลีกุ้ง",category:"single",label:"อาหารตามสั่ง",price:85,emoji:"🥦",spicy:false,pork:false,seafood:true,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวกะหล่ำปลีผัดน้ำปลา",category:"single",label:"อาหารตามสั่ง",price:55,emoji:"🥬",spicy:false,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวถั่วงอกผัดเต้าหู้",category:"single",label:"อาหารตามสั่ง",price:60,emoji:"🌱",spicy:false,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวเห็ดผัดน้ำมันหอย",category:"single",label:"อาหารตามสั่ง",price:60,emoji:"🍄",spicy:false,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวหน่อไม้ผัดไข่",category:"single",label:"อาหารตามสั่ง",price:60,emoji:"🍳",spicy:false,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวมะเขือยาวผัดหมูสับ",category:"single",label:"อาหารตามสั่ง",price:65,emoji:"🍆",spicy:true,pork:true,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวหมูกระเทียม",category:"single",label:"อาหารตามสั่ง",price:65,emoji:"🧄",spicy:false,pork:true,seafood:false,fried:true,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวไก่กระเทียม",category:"single",label:"อาหารตามสั่ง",price:65,emoji:"🧄",spicy:false,pork:false,seafood:false,fried:true,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวเนื้อกระเทียม",category:"single",label:"อาหารตามสั่ง",price:80,emoji:"🧄",spicy:false,pork:false,seafood:false,fried:true,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวกุ้งกระเทียม",category:"single",label:"อาหารตามสั่ง",price:85,emoji:"🍤",spicy:false,pork:false,seafood:true,fried:true,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวปลาหมึกกระเทียม",category:"single",label:"อาหารตามสั่ง",price:85,emoji:"🦑",spicy:false,pork:false,seafood:true,fried:true,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวหมูทอดกระเทียม",category:"single",label:"อาหารตามสั่ง",price:70,emoji:"🍖",spicy:false,pork:true,seafood:false,fried:true,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวไก่ทอดกระเทียม",category:"single",label:"อาหารตามสั่ง",price:70,emoji:"🍗",spicy:false,pork:false,seafood:false,fried:true,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวหมูผัดน้ำมันหอย",category:"single",label:"อาหารตามสั่ง",price:65,emoji:"🥘",spicy:false,pork:true,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวไก่ผัดน้ำมันหอย",category:"single",label:"อาหารตามสั่ง",price:65,emoji:"🥘",spicy:false,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวเนื้อผัดน้ำมันหอย",category:"single",label:"อาหารตามสั่ง",price:80,emoji:"🥘",spicy:false,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวหมูผัดขิง",category:"single",label:"อาหารตามสั่ง",price:65,emoji:"🫚",spicy:false,pork:true,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวไก่ผัดขิง",category:"single",label:"อาหารตามสั่ง",price:65,emoji:"🫚",spicy:false,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวไก่ผัดเม็ดมะม่วง",category:"single",label:"อาหารตามสั่ง",price:80,emoji:"🥜",spicy:false,pork:false,seafood:false,fried:true,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวหมูหวาน",category:"single",label:"อาหารตามสั่ง",price:65,emoji:"🍖",spicy:false,pork:true,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวไก่หวาน",category:"single",label:"อาหารตามสั่ง",price:65,emoji:"🍗",spicy:false,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดหมู",category:"single",label:"อาหารตามสั่ง",price:65,emoji:"🍚",spicy:false,pork:true,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดไก่",category:"single",label:"อาหารตามสั่ง",price:65,emoji:"🍚",spicy:false,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดเนื้อ",category:"single",label:"อาหารตามสั่ง",price:80,emoji:"🍚",spicy:false,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดปลาหมึก",category:"single",label:"อาหารตามสั่ง",price:85,emoji:"🦑",spicy:false,pork:false,seafood:true,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดทะเล",category:"single",label:"อาหารตามสั่ง",price:90,emoji:"🦐",spicy:false,pork:false,seafood:true,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดปู",category:"single",label:"อาหารตามสั่ง",price:90,emoji:"🦀",spicy:false,pork:false,seafood:true,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดแหนม",category:"single",label:"อาหารตามสั่ง",price:70,emoji:"🍚",spicy:false,pork:true,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดกุนเชียง",category:"single",label:"อาหารตามสั่ง",price:70,emoji:"🍚",spicy:false,pork:true,seafood:false,fried:true,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดปลากระป๋อง",category:"single",label:"อาหารตามสั่ง",price:70,emoji:"🐟",spicy:true,pork:false,seafood:true,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดต้มยำไก่",category:"single",label:"อาหารตามสั่ง",price:70,emoji:"🍚",spicy:true,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดต้มยำทะเล",category:"single",label:"อาหารตามสั่ง",price:90,emoji:"🦐",spicy:true,pork:false,seafood:true,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดเขียวหวานไก่",category:"single",label:"อาหารตามสั่ง",price:70,emoji:"🍚",spicy:true,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดพริกแกงใต้ไก่",category:"single",label:"อาหารตามสั่ง",price:70,emoji:"🍚",spicy:true,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวผัดไข่",category:"single",label:"อาหารตามสั่ง",price:50,emoji:"🍳",spicy:false,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวไข่เจียวหมูสับ",category:"single",label:"อาหารตามสั่ง",price:55,emoji:"🍳",spicy:false,pork:true,seafood:false,fried:true,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวไข่เจียวกุ้งสับ",category:"single",label:"อาหารตามสั่ง",price:65,emoji:"🍤",spicy:false,pork:false,seafood:true,fried:true,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวไข่เจียวปู",category:"single",label:"อาหารตามสั่ง",price:75,emoji:"🦀",spicy:false,pork:false,seafood:true,fried:true,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวไข่ข้นหมูสับ",category:"single",label:"อาหารตามสั่ง",price:70,emoji:"🍳",spicy:false,pork:true,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวไข่ข้นกุ้ง",category:"single",label:"อาหารตามสั่ง",price:85,emoji:"🍤",spicy:false,pork:false,seafood:true,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวไข่ข้นปู",category:"single",label:"อาหารตามสั่ง",price:90,emoji:"🦀",spicy:false,pork:false,seafood:true,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวไข่ดาวสองฟอง",category:"single",label:"อาหารตามสั่ง",price:50,emoji:"🍳",spicy:false,pork:false,seafood:false,fried:true,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวยำหมูกรอบ",category:"single",label:"อาหารตามสั่ง",price:80,emoji:"🥗",spicy:true,pork:true,seafood:false,fried:true,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวยำไก่ทอด",category:"single",label:"อาหารตามสั่ง",price:75,emoji:"🥗",spicy:true,pork:false,seafood:false,fried:true,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ข้าวลาบหมู",category:"single",label:"อาหารตามสั่ง",price:70,emoji:"🥗",spicy:true,pork:true,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ผัดซีอิ๊วไก่",category:"noodle",label:"เมนูเส้น",price:65,emoji:"🍜",spicy:false,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ผัดซีอิ๊วทะเล",category:"noodle",label:"เมนูเส้น",price:90,emoji:"🍜",spicy:false,pork:false,seafood:true,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ราดหน้าหมู",category:"noodle",label:"เมนูเส้น",price:65,emoji:"🥣",spicy:false,pork:true,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"ราดหน้าทะเล",category:"noodle",label:"เมนูเส้น",price:90,emoji:"🥣",spicy:false,pork:false,seafood:true,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"สุกี้น้ำหมู",category:"noodle",label:"เมนูเส้น",price:65,emoji:"🥬",spicy:false,pork:true,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"สุกี้น้ำทะเล",category:"noodle",label:"เมนูเส้น",price:90,emoji:"🥬",spicy:false,pork:false,seafood:true,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"สุกี้แห้งหมู",category:"noodle",label:"เมนูเส้น",price:70,emoji:"🥬",spicy:false,pork:true,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"สุกี้แห้งไก่",category:"noodle",label:"เมนูเส้น",price:70,emoji:"🥬",spicy:false,pork:false,seafood:false,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"สุกี้แห้งทะเล",category:"noodle",label:"เมนูเส้น",price:95,emoji:"🥬",spicy:false,pork:false,seafood:true,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"},
+      {name:"มาม่าผัดขี้เมาทะเล",category:"noodle",label:"เมนูเส้น",price:90,emoji:"🍜",spicy:true,pork:false,seafood:true,fried:false,desc:"เมนูอาหารตามสั่งยอดนิยม ปรุงสดใหม่และเลือกระดับความเผ็ดได้"}
     ];
 
     let selectedCategory = "all";
     let selectedBudget = "all";
-    let filters = {notSpicy:false,noPork:false,notFried:false};
+    let filters = {notSpicy:false,noPork:false,noSeafood:false,notFried:false};
     let currentFood = null;
 
     const resultCard = document.getElementById("resultCard");
@@ -292,6 +396,7 @@
         if(selectedBudget !== "all" && f.price > Number(selectedBudget)) return false;
         if(filters.notSpicy && f.spicy) return false;
         if(filters.noPork && f.pork) return false;
+        if(filters.noSeafood && f.seafood) return false;
         if(filters.notFried && f.fried) return false;
         return true;
       });
@@ -375,7 +480,7 @@
     document.getElementById("resetBtn").addEventListener("click", ()=>{
       selectedCategory="all";
       selectedBudget="all";
-      filters={notSpicy:false,noPork:false,notFried:false};
+      filters={notSpicy:false,noPork:false,noSeafood:false,notFried:false};
       document.querySelectorAll("#categoryChips .chip, #budgetChips .chip").forEach(x=>x.classList.remove("active"));
       document.querySelector('#categoryChips [data-value="all"]').classList.add("active");
       document.querySelector('#budgetChips [data-value="all"]').classList.add("active");
